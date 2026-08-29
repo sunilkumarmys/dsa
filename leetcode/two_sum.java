@@ -1,5 +1,10 @@
 package leetcode;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class two_sum {
 
     /*
@@ -32,6 +37,43 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
      */
 
     public static void main(String[] args) {
+        int[] intArray = new int[] {2,3,4,5,6};
+        int target = 9;
+        int[] ints = twoSum(intArray, target);
+        Arrays.stream(Objects.requireNonNull(ints)).boxed().forEach(System.out::println);
+
+        int[] ints1 = twoSum_solution2(intArray, target);
+        Arrays.stream(Objects.requireNonNull(ints1)).boxed().forEach(System.out::println);
+
 
     }
+//solution 1 - creating two pointers and moving one pointer at a time to compare two values if target is achieved then return int[]
+
+    public static int[] twoSum(int[] nums, int target){
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            for (int j = 1; j < nums.length; j++) {
+                if (num + nums[j] == target) {
+                    return new int[]{num, nums[j]};
+                }
+            }
+        }
+        return null;
+    }
+
+    public static int[] twoSum_solution2(int[] nums, int target) {
+        Map<Integer,Integer> container = new HashMap<>();
+        for (int i=0; i<nums.length;i++){
+            int result = target - nums[i];
+            if(container.containsKey(result)){
+                return new int[]{container.get(result), i};
+            }
+            container.put(nums[i],i);
+        }
+
+        return new int[]{};
+    }
+
+
+
 }
